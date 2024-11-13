@@ -16,13 +16,13 @@ const userSchema = mongoose.Schema( {
         type: String,
         required: true
     },
-    profilePic: {
-        type: String,
+    cartData: {
+        type: Object,default:{},
         
     },
-}, { timestamps: true } )
+}, { minimize:false,timestamps: true } )
 
-const userModel = mongoose.model( "user ", userSchema )
+const userModel = mongoose.models.user || mongoose.model( "user ", userSchema )
 
 
 export default userModel

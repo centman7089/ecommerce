@@ -1,41 +1,38 @@
-// @ts-nocheck
 import express from 'express'
-import cors from 'cors'
-import dotenv from 'dotenv'
+import cors from "cors"
+import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
-import connectDB from './db/db.js'
-import userRouter from './routes/userRoute.js'
-
+import dotenv from 'dotenv'
 dotenv.config()
+import connectDB from './db/db.js'
+import connectCloudinary from './db/cloudinary.js'
+import userRouter from './routes/userRoute.js'
+import productRouter from './routes/productRouter.js'
 
+//App config
 const app = express()
-
-// connectDB()
-//middleware
-app.use(cors())
-app.use(express.json())
-// app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser())
-
-//api
-app.use("/api/users",userRouter)
-
 const PORT = process.env.PORT || 5000
+connectDB()
+connectCloudinary()
 
-// app.listen(PORT, ()=> console.log(`Server listening on localhost:${PORT}`)
-// )
 
-app.get("/" ,( req, res ) =>
+//middleware
+app.use(express.json())
+app.use(cors())
+app.use(cookieParser())
+app.use( bodyParser.urlencoded( { extended: true}))
+
+
+//api end point
+app.use("/api/user",userRouter)
+app.use("/api/product",productRouter)
+app.use( ( req, res ) =>
 {
-    res.send("home")
-})
+    res.send("thanks")
+} )
 
-connectDB().then(()=> {
-    
-app.listen( PORT, () =>
-{
-    console.log("connect to DB");
-    console.log("server is running");
-    
-})}).catch(()=> console.log("error connecting to DB")
+app.listen(
+
+PORT, ()=> console.log(`Server started on port ${PORT}`)
+
 )

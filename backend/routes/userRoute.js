@@ -1,10 +1,11 @@
 // @ts-nocheck
 import express from 'express'
-import { logout, signin, signup } from '../controllers/userController.js'
+import { adminLogin, loginUser, registerUser } from '../controllers/userController.js'
 
 const userRouter = express.Router()
-userRouter.post("/signup",signup)
-userRouter.post("/signin",signin)
-userRouter.post("/logout",logout)
+userRouter.post("/register",registerUser)
+userRouter.post("/login",loginUser)
+userRouter.post("/admin",adminLogin)
+userRouter.get("/logout",adminLogin)
 
 export default userRouter
