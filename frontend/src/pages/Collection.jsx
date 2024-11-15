@@ -74,7 +74,7 @@ setFilterProducts(productsCopy)
     useEffect( () =>
   {
     applyFilter(products)
-  },[category,subCategory,search,showSearch])
+  },[category,subCategory,search,showSearch,products])
   
     useEffect( () =>
   {
